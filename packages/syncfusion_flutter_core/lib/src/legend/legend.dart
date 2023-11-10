@@ -537,7 +537,7 @@ class _SfLegendState extends State<SfLegend> {
         children: <Widget>[
           widget.child,
           Align(
-            alignment: _getEffectiveAlignment(widget.position),
+            alignment: _getEffectiveAlignment(widget.position, widget.alignment ?? LegendAlignment.center),
             child: Padding(padding: _getEffectiveEdgeInsets(), child: current),
           ),
         ],
@@ -853,17 +853,25 @@ class _SfLegendState extends State<SfLegend> {
     return current;
   }
 
-  AlignmentGeometry _getEffectiveAlignment(LegendPosition position) {
+AlignmentGeometry _getEffectiveAlignment(
+      LegendPosition position, LegendAlignment alignment) {
     switch (position) {
       case LegendPosition.top:
+        if (alignment == LegendAlignment.near)
+          return Alignment.topLeft;
+        else if (alignment == LegendAlignment.far) return Alignment.topRight;
         return Alignment.topCenter;
       case LegendPosition.bottom:
+        if (alignment == LegendAlignment.near)
+          return Alignment.bottomLeft;
+        else if (alignment == LegendAlignment.far) return Alignment.bottomRight;
         return Alignment.bottomCenter;
       case LegendPosition.left:
         return Alignment.centerLeft;
       case LegendPosition.right:
         return Alignment.centerRight;
     }
+    return Alignment.center;
   }
 
   AlignmentGeometry _getEffectiveLegendItemsAlignment(
