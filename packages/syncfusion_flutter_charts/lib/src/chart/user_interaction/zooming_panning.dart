@@ -30,6 +30,7 @@ class ZoomPanBehavior {
       {this.enablePinching = false,
       this.enableDoubleTapZooming = false,
       this.enablePanning = false,
+      this.enableDoubleTapReset = false,
       this.enableSelectionZooming = false,
       this.enableMouseWheelZooming = false,
       this.zoomMode = ZoomMode.xy,
@@ -87,6 +88,31 @@ class ZoomPanBehavior {
   /// }
   /// ```
   final bool enableDoubleTapZooming;
+
+  /// Enables or disables the double tap reset.
+  /// For this to work the 'enableDoubleTapZooming' must be false.
+  ///
+  /// When you tap double time in plotarea zooms levels will reset.
+  ///
+  /// Defaults to `false`.
+  ///
+  /// ```dart
+  /// late ZoomPanBehavior zoomPanBehavior;
+  ///
+  /// void initState() {
+  ///   zoomPanBehavior = ZoomPanBehavior(
+  ///     enableDoubleTapReset: true
+  ///   );
+  ///   super.initState();
+  /// }
+  ///
+  /// Widget build(BuildContext context) {
+  ///   return SfCartesianChart(
+  ///     zoomPanBehavior: zoomPanBehavior
+  ///   );
+  /// }
+  /// ```
+  final bool enableDoubleTapReset;
 
   /// Enables or disables the panning.
   ///
@@ -299,6 +325,7 @@ class ZoomPanBehavior {
 
     return other is ZoomPanBehavior &&
         other.enablePinching == enablePinching &&
+        other.enableDoubleTapReset == enableDoubleTapReset &&
         other.enableDoubleTapZooming == enableDoubleTapZooming &&
         other.enablePanning == enablePanning &&
         other.enableSelectionZooming == enableSelectionZooming &&
@@ -315,6 +342,7 @@ class ZoomPanBehavior {
   int get hashCode {
     final List<Object?> values = <Object?>[
       enablePinching,
+      enableDoubleTapReset,
       enableDoubleTapZooming,
       enablePanning,
       enableSelectionZooming,

@@ -3771,7 +3771,8 @@ class _ContainerAreaState extends State<ContainerArea> {
                     widget._stateProperties.zoomPanBehaviorRenderer)
                 .zoomFactor);
       }
-    }
+    } else if (chart.zoomPanBehavior.enableDoubleTapReset == true)
+      chart.zoomPanBehavior.reset();
   }
 
   /// Update the details for pan
@@ -4084,7 +4085,8 @@ class _ContainerAreaState extends State<ContainerArea> {
         widget._stateProperties.crosshairBehaviorRenderer
             .onExit(position.dx, position.dy);
       }
-      if (chart.trackballBehavior.enable) {
+      if (chart.trackballBehavior.enable &&
+          chart.trackballBehavior.shouldAlwaysShow == false) {
         widget._stateProperties.trackballBehaviorRenderer
             .onExit(position.dx, position.dy);
       }
